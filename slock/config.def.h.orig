@@ -1,0 +1,15 @@
+/* user and group to drop privileges to */
+static const char *user  = "ismail";
+static const char *group = "users";
+
+static const char *colorname[NUMCOLS] = {
+	[INIT] =   "#1d1f21",     /* after initialization */
+	[INPUT] =  "#1d1f21",   /* during input */
+	[FAILED] = "#581c1c",   /* wrong password */
+};
+
+/* treat a cleared input like a wrong password (color) */
+static const int failonclear = 1;
+
+/* allow control key to trigger fail on clear */
+static const int controlkeyclear = 0;
