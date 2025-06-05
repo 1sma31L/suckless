@@ -39,7 +39,7 @@ static const Rule rules[] = {
 	{ "TelegramDesktop",         NULL,       NULL,                1 << 3,       1,         0,           -1 },
 	{ "discord",                 NULL,       NULL,                1 << 4,       1,         0,           -1 },
 	{ "mpv",                     NULL,       NULL,                1 << 5,       1,         0,           -1 },
-	{ "Free Download Manager",   NULL,       NULL,                1 << 8,       1,         0,           -1 },
+	{ "Free Download Manager",               NULL,       NULL,                1 << 8,       1,         0,           -1 },
 	{ NULL,                      NULL,      "Picture-in-Picture", 0,            1,         1,           -1 },
 	{ NULL,                      NULL,       NULL,                0,            1,         0,           -1 },
 };
@@ -77,14 +77,14 @@ static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "80x25"
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_bracketleft,       cycleview,      {1} },
 	{ MODKEY,                       XK_bracketright,      cycleview,      {0} },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },

@@ -21,6 +21,7 @@
  * To understand everything else, start reading main().
  */
 #include <errno.h>
+#include <fribidi.h>
 #include <locale.h>
 #include <signal.h>
 #include <stdarg.h>
@@ -164,6 +165,7 @@ struct Systray {
 };
 
 /* function declarations */
+static void apply_fribidi(char *str);
 static void applyrules(Client *c);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact);
 static void arrange(Monitor *m);
@@ -276,6 +278,7 @@ static void zoom(const Arg *arg);
 static Systray *systray = NULL;
 static const char broken[] = "broken";
 static char stext[256];
+static char fribidi_text[256];
 static int screen;
 static int sw, sh;           /* X display screen geometry width, height */
 static int bh;               /* bar height */
@@ -317,6 +320,21 @@ static unsigned int scratchtag = 1 << LENGTH(tags);
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
 
 /* function implementations */
+void
+apply_fribidi(char *str)
+{
+	FriBidiStrIndex len = strlen(str);
+	FriBidiChar logical[256];
+	FriBidiChar visual[256];
+	FriBidiParType base = FRIBIDI_PAR_ON;
+	FriBidiCharSet charset;
+
+	charset = fribidi_parse_charset("UTF-8");
+	len = fribidi_charset_to_unicode(charset, str, len, logical);
+	fribidi_log2vis(logical, len, &base, visual, NULL, NULL, NULL);
+	fribidi_unicode_to_charset(charset, visual, len, fribidi_text);
+}
+
 void
 applyrules(Client *c)
 {
@@ -847,8 +865,9 @@ drawbar(Monitor *m)
 		rstext = strdup(stext);
 		if (splitstatus) {
 			mstext = strsep(&rstext, splitdelim);
+			apply_fribidi(mstext);
 			msx = (m->ww - TEXTW(mstext) + lrpad) / 2; /* x position of middle status text */
-			drw_text(drw, msx, 0, TEXTW(mstext) - lrpad, bh, 0, mstext, 0);
+			drw_text(drw, msx, 0, TEXTW(mstext) - lrpad, bh, 0, fribidi_text, 0);
 		}
 		tw = TEXTW(rstext) - lrpad / 2; /* 2px extra right padding */
 		drw_text(drw, m->ww - tw - stw, 0, tw, bh, lrpad / 2, rstext, 0);
