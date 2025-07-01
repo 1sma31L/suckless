@@ -6,7 +6,7 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 static char *font = "FiraCode Nerd Font:size=12";;
-static int borderpx = 4;
+static int borderpx = 8;
 
 /*
  * What program is execed by st depends of these precedence rules:

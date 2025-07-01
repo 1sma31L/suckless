@@ -34,13 +34,37 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class                     instance    title                tags mask     iscenter   isfloating   monitor */
-        { "Brave-browser",           NULL,       NULL,                1 << 1,       1,         0,           -1 },
-	{ "Windsurf",                NULL,       NULL,                1 << 2,       1,         0,           -1 },
+	// [1]
+	// for ST but I don't like putting rules for it 
+
+	
+        // [2]
+	{ "Brave-browser",           NULL,       NULL,                1 << 1,       1,         0,           -1 },
+	
+	// [3]
+	{ "Code",                    NULL,       NULL,                1 << 2,       1,         0,           -1 },
+	
+	// [4]
 	{ "TelegramDesktop",         NULL,       NULL,                1 << 3,       1,         0,           -1 },
-	{ "discord",                 NULL,       NULL,                1 << 4,       1,         0,           -1 },
-	{ "mpv",                     NULL,       NULL,                1 << 5,       1,         0,           -1 },
-	{ "Free Download Manager",               NULL,       NULL,                1 << 8,       1,         0,           -1 },
-	{ NULL,                      NULL,      "Picture-in-Picture", 0,            1,         1,           -1 },
+	{ "discord",                 NULL,       NULL,                1 << 3,       1,         0,           -1 },
+	
+        // [5]
+	{ "mpv",                     NULL,       NULL,                1 << 4,       1,         0,           -1 },
+	{ "Stremio",                 NULL,       NULL,                1 << 4,       1,         0,           -1 },
+	
+	// [6]
+	{ "obsidian",                NULL,       NULL,                1 << 5,       1,         0,           -1 },
+	
+	// [7]
+	{ "org.gnome.Nautilus",      NULL,       NULL,                1 << 6,       1,         0,           -1 },
+	
+        // [8]
+	{ "qemu",                    NULL,       NULL,                1 << 7,       1,         0,           -1 },
+	
+        // [9]
+	{ "Free Download Manager",   NULL,       NULL,                1 << 8,       1,         0,           -1 },
+	
+	// [*]
 	{ NULL,                      NULL,       NULL,                0,            1,         0,           -1 },
 };
 
@@ -76,29 +100,31 @@ static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "80x25", NULL };
 
 static const Key keys[] = {
-	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_bracketleft,       cycleview,      {1} },
-	{ MODKEY,                       XK_bracketright,      cycleview,      {0} },
-	{ MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
-	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
-	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
-	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
-	{ MODKEY|ShiftMask,             XK_j,      pushdown,       {0} },
-	{ MODKEY|ShiftMask,             XK_k,      pushup,         {0} },
-	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
-	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
-	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
-	{ MODKEY,                       XK_0,      setgaps,        {.i =  0 } },
-	{ MODKEY|ShiftMask,             XK_c,      quit,           {0} },
+	/* modifier                     key                function        argument */
+	{ MODKEY,                       XK_p,              spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_Return,         spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_j,              focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_k,              focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_bracketleft,    cycleview,      {1} },
+	{ MODKEY,                       XK_Left,      cycleview,      {1} },
+	{ MODKEY,                       XK_bracketright,   cycleview,      {0} },
+	{ MODKEY,                       XK_Right,     cycleview,      {0} },
+	{ MODKEY|ShiftMask,             XK_i,              incnmaster,     {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_d,              incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_h,              setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_l,              setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_Tab,            view,           {0} },
+	{ MODKEY|ShiftMask,             XK_b,              togglebar,      {0} },
+	{ MODKEY|ShiftMask,             XK_Return,         zoom,           {0} },
+	{ MODKEY|ShiftMask,             XK_f,              togglefullscr,  {0} },
+	{ MODKEY|ShiftMask,             XK_q,              killclient,     {0} },
+	{ MODKEY|ShiftMask,             XK_j,              pushdown,       {0} },
+	{ MODKEY|ShiftMask,             XK_k,              pushup,         {0} },
+	{ MODKEY,                       XK_grave,          togglescratch,  {.v = scratchpadcmd } },
+	{ MODKEY,                       XK_minus,          setgaps,        {.i = -1 } },
+	{ MODKEY,                       XK_equal,          setgaps,        {.i = +1 } },
+	{ MODKEY,                       XK_0,              setgaps,        {.i =  0 } },
+	{ MODKEY|ShiftMask,             XK_BackSpace,      quit,           {0} },
 	/*
 	 { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	 { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },

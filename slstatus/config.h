@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* interval between updates (in ms) */
-const unsigned int interval = 500;
+const unsigned int interval = 1000;
 
 /* text to show if no value can be retrieved */
 static const char unknown_str[] = "";
@@ -69,16 +69,21 @@ static const char unknown_str[] = "";
  */
 static const struct arg args[] = {
 	/* function         format              argument                                   trun     signal */
-	{ run_command,     "%s",                "~/scripts/middle_status.sh",              2,       -1 },
-	{ run_command,     "%s",                "echo ';'",                                0,       -1 },
-	// { netspeed_rx,     "  %s ",            "wlan0",                                   2,       -1 },
+	{ run_command,     "%s",                "~/scripts/middle_status.sh",              1,       -1 },
+	{ run_command,     "%s",                "echo ';'",                                1,       -1 },
+	{ netspeed_rx,     "%s | ",             "wlan0",                                   1,       -1 },
 	// { netspeed_tx,     "  %s | ",          "wlan0",                                   2,       -1 },
 	{ run_command,     "%s | ",             "~/scripts/volume.sh",                     1,       -1 },
-	{ ram_used,        "  %s | ",           NULL,                                     4,       -1 },
-	{ cpu_perc,	   "  %s%%",            NULL,                                     4,       -1 },
-	{ temp,  	   " %s󰔄 | ",           "/sys/class/thermal/thermal_zone1/temp",  10,       -1 },
-	{ wifi_essid,	   "  %s | ",          "wlan0",                                  10,       -1 },
-	{ run_command,	   "%s | ",             "~/scripts/bluetooth.sh",                  2,       -1 },
-	{ run_command,     "%s | ",             "~/scripts/battery.sh",                    2,       -1 },
-	{ datetime,        "%s ",               "%a %b %d - %H:%M",                        2,       -1 },
+	{ ram_used,        "  %s | ",           NULL,                                     2,       -1 },
+	{ cpu_perc,	   "  %s%% | " ,        NULL,                                     2,       -1 },
+	// { temp,  	   " %s󰔄 | ",           "/sys/class/thermal/thermal_zone1/temp",  10,       -1 },
+	// { up,	           "wlan0 %s ",         "wlan0",                                   2,       -1 },
+	{ wifi_essid,	   "%s | ",             "wlan0",                                   1,       -1 },
+	// { up,	           "tun0 %s | ",        "tun0",                                    2,       -1 },
+	{ run_command,	   "%s | ",             "~/scripts/bluetooth.sh",                  1,       -1 },
+	{ run_command,     "%s%% | ",           "~/scripts/battery.sh",                    1,       -1 },
+	// { battery_state,     "%s",           "BAT0",                    1,       -1 },
+	// { battery_perc,     "%s%% ",           "BAT0",                    1,       -1 },
+	// { battery_remaining,     "%s | ",           "BAT0",                    1,       -1 },
+	{ datetime,        "%s ",               "%a %b %d - %H:%M",                        1,       -1 },
 };
