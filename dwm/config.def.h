@@ -42,7 +42,7 @@ static const Rule rules[] = {
 	{ "Brave-browser",           NULL,       NULL,                1 << 1,       1,         0,           -1 },
 	
 	// [3]
-	{ "Code",                    NULL,       NULL,                1 << 2,       1,         0,           -1 },
+	{ "Cursor",                    NULL,       NULL,                1 << 2,       1,         0,           -1 },
 	
 	// [4]
 	{ "TelegramDesktop",         NULL,       NULL,                1 << 3,       1,         0,           -1 },
